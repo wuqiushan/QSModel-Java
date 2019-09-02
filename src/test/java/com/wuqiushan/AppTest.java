@@ -33,10 +33,7 @@ public class AppTest
 
         Map<String, Object> map = new Gson().fromJson(jsonStr, HashMap.class);
 //        Student student1 = new Gson().fromJson(jsonStr, Student.class);
-
         Student student = QSModel.qs_modelWithMap(map, Student.class);
-
-
         System.out.println(map);
     }
 
@@ -64,7 +61,6 @@ public class AppTest
     public void testSwitch() {
 
 //        Object result = testM();
-
 //        System.out.println(result);
     }
 }

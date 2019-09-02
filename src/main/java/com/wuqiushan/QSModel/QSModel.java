@@ -7,6 +7,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class QSModel {
 
@@ -42,12 +44,15 @@ public class QSModel {
                     continue;
                 }
 
+                if (fieldName.equals("address")) {
+//                    mapValue = (int)120;
+                    System.out.println("test");
+                }
                 if (fieldName.equals("addressA")) {
 //                    mapValue = (int)120;
                     System.out.println("test");
                 }
                 if (fieldName.equals("courses")) {
-                    Type genericType = field.getGenericType();
                     System.out.println("test");
                 }
                 if (fieldName.equals("coursesA")) {
@@ -56,7 +61,10 @@ public class QSModel {
 
                 // 设置值到对象里，设置前，把允许打开
                 field.setAccessible(true);
+//                System.out.println(">>>1" + mapValue.getClass());
+//                System.out.println(">>>2" + fieldType);
                 if (mapValue.getClass() != fieldType) {
+
                     try {
                         mapValue = convertType(fieldType, mapValue.getClass(), mapValue);
                     } catch (Exception e) {
@@ -64,14 +72,13 @@ public class QSModel {
                     }
 
                     // 如果类型没有相等的，在基本类型又找不到，初步判断为对象
-                    if ((int)mapValue == -1) {
+                    if ((mapValue.getClass() == Integer.class) && ((int)mapValue == -1)) {
 
                         mapValue = map.get(fieldName);
 
                         if ((mapValue.getClass() == LinkedHashMap.class) ||
                                 (mapValue.getClass() == HashMap.class) ||
-                                (mapValue.getClass() == TreeMap.class) ||
-                                (mapValue.getClass() == LinkedTreeMap.class)) {
+                                (mapValue.getClass() == TreeMap.class)) {
                             System.out.println("来了");
                             mapValue = null;
                             System.out.println("转化了");
@@ -79,11 +86,81 @@ public class QSModel {
                         else {
 
                             // 为Map类型的话
-                            if (map instanceof Map) {
+                            if (mapValue instanceof Map) {
                                 mapValue = qs_modelWithMap((Map<String, Object>) mapValue, fieldType);
                             }
                         }
                     }
+                }
+                // 如果是数组
+                else if ((fieldType == ArrayList.class) && (mapValue.getClass() == ArrayList.class)) {
+
+                    /**
+                     * 1.获取其元素类型字符串
+                     * 2.例：genericType = java.util.ArrayList<java.util.Map>
+                     * 3.获取类型
+                     */
+                    Type genericType = field.getGenericType();
+                    Pattern pattern = Pattern.compile("<[.a-zA-Z]*>");
+                    Matcher matcher = pattern.matcher(genericType.getTypeName());
+
+                    // 匹配到结果如：<java.util.Map>
+                    String targetType = "";
+                    while (matcher.find()) {
+
+                        String matcherStr = matcher.group();
+                        if ((matcherStr.length() > 2) &&
+                                (matcherStr.charAt(0) == '<') &&
+                                (matcherStr.charAt(matcherStr.length() - 1) == '>')) {
+
+                            targetType = matcherStr.substring(1, matcherStr.length() - 1);
+                            break;
+                        }
+                    }
+
+                    // 得到数组元素的类型
+                    System.out.println("得到数组元素的类型" + targetType);
+
+                    // 获取到类型字符串时，转化为类型
+                    if (!targetType.equals("")) {
+                        fieldType = Class.forName(targetType);
+                    }
+
+                    // 遍历字典的元素
+                    ArrayList<Object> arrayList = new ArrayList<>();
+                    for (Object element : (ArrayList)mapValue) {
+
+                        Object elementTmp = null;
+                        try {
+                            elementTmp = convertType(fieldType, element.getClass(), element);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        // 如果类型没有相等的，在基本类型又找不到，初步判断为对象
+                        if ((elementTmp.getClass() == Integer.class) && ((int)elementTmp == -1)) {
+
+//                            elementTmp = map.get(fieldName);
+                            elementTmp = element;
+
+                            if ((elementTmp.getClass() == LinkedHashMap.class) ||
+                                    (elementTmp.getClass() == HashMap.class) ||
+                                    (elementTmp.getClass() == TreeMap.class)) {
+                                System.out.println("来了");
+                                elementTmp = null;
+                                System.out.println("转化了");
+                            }
+                            else {
+
+                                // 为Map类型的话
+                                if (elementTmp instanceof Map) {
+                                    elementTmp = qs_modelWithMap((Map<String, Object>) elementTmp, fieldType);
+                                }
+                            }
+                        }
+                        arrayList.add(elementTmp);
+                    }
+                    mapValue = arrayList;
                 }
 
                 // 如果有值才设置
@@ -99,6 +176,8 @@ public class QSModel {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
