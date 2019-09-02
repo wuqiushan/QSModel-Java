@@ -9,6 +9,8 @@ import com.wuqiushan.testModel.Student;
 import com.wuqiushan.testModel.SupStudent;
 import org.junit.Test;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,8 +42,29 @@ public class AppTest
 
     @Test
     public void testDo() {
+        System.out.println(double.class);
+        System.out.println(Double.class);
         if (double.class == Double.class) {
             System.out.println("相等了");
         }
+    }
+
+
+//    public static Object testM() {
+//        Object result = null;
+//        try {
+//            result = convertType(int.class, Byte.class, (byte)12);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
+
+    @Test
+    public void testSwitch() {
+
+//        Object result = testM();
+
+//        System.out.println(result);
     }
 }
