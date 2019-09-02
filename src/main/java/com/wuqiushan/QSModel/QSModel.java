@@ -196,7 +196,7 @@ public class QSModel {
      * @return 返回转化后的结果
      * @throws Exception
      */
-    public static <T, E> Object convertType(Class<T> targetT, Class<E> orgT, Object orgValue) throws Exception {
+    private static <T, E> Object convertType(Class<T> targetT, Class<E> orgT, Object orgValue) throws Exception {
 
         Object object = null;
         try {
@@ -245,5 +245,129 @@ public class QSModel {
             throw new IllegalArgumentException(orgT.getName() + " convert to " + targetT.getName() + " error");
         }
         return object;
+    }
+
+    // jsonString to Map/Array
+    public static Object qs_objectWithString(String orgStr) {
+
+        if (orgStr == null) { return null; }
+
+        // 解析前：去除所有空格 \r \n 等字符
+        orgStr = orgStr.replace("\r", "");
+        orgStr = orgStr.replace("\n", "");
+        orgStr = orgStr.replace(" ", "");
+
+        if (orgStr.length() == 0) { return null; }
+        StringBuilder strBuilder = new StringBuilder(orgStr);
+
+        // 判断是否为字典
+        if ( (strBuilder.charAt(0) == '{') && (strBuilder.charAt(orgStr.length() - 1) == '}') ) {
+
+            /** 删除前后的 {} ==> "xx":xx,"xx":"xx" */
+            strBuilder.deleteCharAt(orgStr.length() - 1);
+            strBuilder.deleteCharAt(0);
+
+            /** 存放转换后的元素 */
+            HashMap<String, Object> hashMap = new HashMap<>();
+
+            /** "key1":xx,"key2":"xx","key3":{"sub1":"xx", "sub2":"xx"},"key4":[] */
+            String[] strings = strBuilder.toString().split(",");
+            for (String element : strings) { // "xx":xx
+
+                /** 1.if(正则 "xx":"xx",) 为字符串String (频度大放最前面，减少判断开销) */
+                if (element.matches("^\"\\w+\":\"\\d+\"")) {
+
+                    int index    = element.indexOf(":");
+                    String key   = element.substring(1, index - 1);
+                    String value = element.substring(index + 1, element.length() - 1);
+                    hashMap.put(key, value);
+                }
+                /** 2.if(正则 "xx":[.0-9]],) 为浮点Number  优先匹配因为[0-9]容易把该类型匹配走 */
+                else if(element.matches("^\"\\w+\":\\d+[.]{1}\\d+")) {
+
+                    int index    = element.indexOf(":");
+                    String key   = element.substring(1, index - 1);
+                    String value = element.substring(index, element.length());
+                    Double valueDouble = Double.parseDouble(value);
+                    hashMap.put(key, valueDouble);
+                }
+                /** 3.if(正则 "xx":[0-9],) 为整形Number */
+                else if(element.matches("^\"\\w+\":\\d+")) {
+
+                    int index    = element.indexOf(":");
+                    String key   = element.substring(1, index - 1);
+                    String value = element.substring(index, element.length());
+                    Integer valueInt = Integer.parseInt(value);
+                    hashMap.put(key, valueInt);
+                }
+                /** 4.if(正则 "xx":true,) 为Boolean true */
+                else if(element.matches("^\"\\w+\":true")) {
+                    int index    = element.indexOf(":");
+                    String key   = element.substring(1, index - 1);
+                    Boolean value = true;
+                    hashMap.put(key, value);
+                }
+                /** 5.if(正则 "xx":false,) 为Boolean false */
+                else if(element.matches("^\"\\w+\":false")) {
+
+                    int index    = element.indexOf(":");
+                    String key   = element.substring(1, index - 1);
+                    Boolean value = false;
+                    hashMap.put(key, value);
+                }
+                /** 6.if(正则 "xx":[]) 为Array 递归 第一步 */
+                else if(element.matches("^\"\\w+\":\\[")) {
+
+                    int index    = element.indexOf(":");
+                    String key   = element.substring(1, index - 1);
+                    String value = element.substring(index, element.length());
+                    Object subObject = qs_objectWithString(value);
+                    hashMap.put(key, subObject);
+                }
+                /** 7.if(正则 "xx":{}) 为Map(Object) 递归 第一步 */
+                else if(element.matches("^\"\\w+\":\\{")) {
+
+                    int index    = element.indexOf(":");
+                    String key   = element.substring(1, index - 1);
+                    String value = element.substring(index, element.length());
+                    Object subObject = qs_objectWithString(value);
+                    hashMap.put(key, subObject);
+                }
+                /** 8.if(正则 "xx":"null") 为null */
+                else if(element.matches("^\"\\w+\":null")) {
+
+                    int index    = element.indexOf(":");
+                    String key   = element.substring(1, index - 1);
+                    hashMap.put(key, null);
+                }
+                else {
+                    System.out.println("解析失败：" + element + " 格式错误");
+                }
+            }
+
+            return hashMap;
+        }
+        // 判断是否为数组 (要测试这种空的情况：[] )
+        else if ( (strBuilder.charAt(0) == '[') && (strBuilder.charAt(orgStr.length() - 1) == ']') ) {
+
+            /** 删除前后的 [] ==> {},{},{} */
+            strBuilder.deleteCharAt(orgStr.length() - 1);
+            strBuilder.deleteCharAt(0);
+
+            /** 存放转换后的元素 */
+            ArrayList<Object> arrayList = new ArrayList<>();
+
+            /** {},{},{} 遍历后， 递归调用获取结束 */
+            String[] strings = strBuilder.toString().split(",");
+            for (String element : strings) {
+                Object objectElement = qs_objectWithString(element);
+                arrayList.add(objectElement);
+            }
+
+            return arrayList;
+        }
+
+        System.out.println("解析失败：" +  "最外层的 {}、[]格式错误");
+        return null;
     }
 }

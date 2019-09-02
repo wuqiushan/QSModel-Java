@@ -1,0 +1,42 @@
+{    "id":"2462079046",    "name": "张三",    "age":"22",    "weight":120.0,   "six":false,    "address":{        "country": "中国",        "province": "湖南省"    },    "addressA":{        "country": "中国",        "province": "台湾省"    },    "courses":[        {            "name": "物理",            "duration": 30        },        {            "name": "化学",            "duration": 45        }    ],    "coursesA":[        {            "name": "物理",            "duration": 30        },        {            "name": "化学",            "duration": 45        }    ],    "birthday": "1996-03-28 05:27:31.050"}
+
+
+
+解析前：去除所有空格 \r \n 等字符
+
+第一步：判断本层的括号来创建数组还是字典，并去除括号
+第二步：用ArrayList<String> 接受，通过逗号, 分隔后的数组
+第三步：用正则表达式，来进行分类判断
+      1.if(正则 "xx":"xx",) 为字符串String
+      2.if(正则 "xx":[.0-9]],) 为浮点Number  优先匹配因为[0-9]容易把该类型匹配走
+      3.if(正则 "xx":[0-9],) 为整形Number
+      4.if(正则 "xx":true,) 为Boolean true
+      5.if(正则 "xx":false,) 为Boolean false
+      6.if(正则 "xx":[]) 为Array 递归 第一步
+      7.if(正则 "xx":{}) 为Map(Object) 递归 第一步
+      8.if(正则 "xx":"null") 为null
+      9.格式错误 解析失败
+第六步：解析完成返回
+
+
+// 贪吃 {}
+"\w+":{(.*?)},
+"\w+":{(.*)}
+
+// 贪吃 []
+
+
+
+为什么用正则：
+1.因为正则按正确的格式匹配
+2.如果用if else判断的话，要把各种情况考虑到的话，那么需要非常多的判断
+
+// 嵌套
+"address":{{"country":"中国","province":"湖南省", "address":{"country":"中国","province":"湖南省"},"address":{"country":"中国","province":"湖南省", "address":{"country":"中国","province":"湖南省"},"address":{"country":"中国","province":"湖南省", "address":{"country":"中国","province":"湖南省"},"address":{"country":"中国","province":"湖南省", "address":{"country":"中国","province":"湖南省"}}
+
+"id":"2462079046","name":"张三","age":"22","weight":120.0,"six":false,"address":{"country":"中国","province":"湖南省"},"addressA":{"country":"中国","province":"台湾省"},"courses":[{"name":"物理","duration":30,"address":{"country":"中国","province":"湖南省", "address":{"country":"中国","province":"湖南省"}},{"name":"化学","duration":45}],"coursesA":[{"name":"物理","duration":30,"address":{"country":"中国","province":"湖南省", "address":{"country":"中国","province":"湖南省"}},{"name":"化学","duration":45,"address":{"country":"中国","province":"湖南省", "address":{"country":"中国","province":"湖南省"}}],"birthday":"1996-03-2805:27:31.050"
+
+"courses":[{"name":"物理","duration":30,"courses":[{"name":"物理","duration":30,"address":{"country":"中国","province":"湖南省", "address":{"country":"中国","province":"湖南省"}},{"name":"化学","duration":45}],"address":{"country":"中国","province":"湖南省", "address":{"country":"中国","province":"湖南省"}},{"name":"化学","duration":45}]
+
+
+

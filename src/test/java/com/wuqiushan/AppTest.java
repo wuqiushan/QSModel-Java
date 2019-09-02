@@ -23,7 +23,7 @@ public class AppTest
      * Rigorous Test :-)
      */
     @Test
-    public void shouldAnswerWithTrue()
+    public void testModelWithMap()
     {
         assertTrue( true );
         // 读取JSON文件
@@ -37,6 +37,14 @@ public class AppTest
         System.out.println(map);
     }
 
+
+    @Test
+    public void testMapWithString() {
+        String str = "{    \"id\":\"2462079046\",    \"name\": \"张三\",    \"age\":\"22\",    \"weight\":120.0,   \"six\":false,    \"address\":{        \"country\": \"中国\",        \"province\": \"湖南省\"    },    \"addressA\":{        \"country\": \"中国\",        \"province\": \"台湾省\"    },    \"courses\":[        {            \"name\": \"物理\",            \"duration\": 30        },        {            \"name\": \"化学\",            \"duration\": 45        }    ],    \"coursesA\":[        {            \"name\": \"物理\",            \"duration\": 30        },        {            \"name\": \"化学\",            \"duration\": 45        }    ],    \"birthday\": \"1996-03-28 05:27:31.050\"}";
+        Object hashMap = QSModel.qs_objectWithString(str);
+        System.out.println(hashMap);;
+    }
+
     @Test
     public void testDo() {
         System.out.println(double.class);
@@ -46,21 +54,4 @@ public class AppTest
         }
     }
 
-
-//    public static Object testM() {
-//        Object result = null;
-//        try {
-//            result = convertType(int.class, Byte.class, (byte)12);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return result;
-//    }
-
-    @Test
-    public void testSwitch() {
-
-//        Object result = testM();
-//        System.out.println(result);
-    }
 }
