@@ -218,17 +218,14 @@ public class QSModel {
                 case "byte":
                     object = Byte.parseByte(tmpStr);
                     break;
-
                 case "java.lang.Character":
                 case "char":
 //                    object = Character.;
                     break;
-
                 case "java.lang.Long":
                 case "long":
                     object = Long.parseLong(tmpStr);
                     break;
-
                 case "java.lang.Short":
                 case "short":
                     object = Short.parseShort(tmpStr);
@@ -268,13 +265,13 @@ public class QSModel {
             HashMap<String, Object> hashMap = new HashMap<>();
 
             /** "key1":xx,"key2":"xx","key3":{"sub1":"xx", "sub2":"xx"},"key4":[] */
-            /** 分隔前用把 {、[、]、} 的部分替换成 %(时间错)% 原身存放字典 */
+            /** 分隔前用把 {、[、]、} 的部分替换成 %(UUID)% 原身存放字典 */
             HashMap<String, String> subStrMap = splitMaxMatches(strBuilder, "[\\[\\]{}]{1}");
 
-            // 分隔
+            // 分隔成字符串数组
             String[] strings = strBuilder.toString().split(",");
 
-            for (String element : strings) { // "xx":xx
+            for (String element : strings) {
 
                 /** 1.if(正则 "xx":"xx",) 为字符串String及中文 (频度大放最前面，减少判断开销) */
                 if (element.matches("^\"\\w+\":\".*?\"")) {
@@ -317,7 +314,7 @@ public class QSModel {
                     Boolean value = false;
                     hashMap.put(key, value);
                 }
-                /** if(正则 "xx":%xxxxx) 为[、{、}、] (即: 数组或者字典时) 递归 */
+                /** 6.if(正则 "xx":%xxxxx) 为[、{、}、] (即: 数组或者字典时) 递归 */
                 else if (element.matches("^\"\\w+\":%\\w+%")) {
 
                     int index    = element.indexOf(":");
@@ -330,7 +327,7 @@ public class QSModel {
                         hashMap.put(key, subObject);
                     }
                 }
-                /** 8.if(正则 "xx":"null") 为null */
+                /** 7.if(正则 "xx":"null") 为null */
                 else if(element.matches("^\"\\w+\":null")) {
 
                     int index    = element.indexOf(":");
@@ -342,13 +339,12 @@ public class QSModel {
                     return null;
                 }
             }
-
             return hashMap;
         }
         // 判断是否为数组 (要测试这种空的情况：[] )
         else if ( (strBuilder.charAt(0) == '[') && (strBuilder.charAt(orgStr.length() - 1) == ']') ) {
 
-            /** 删除前后的 [] ==> {},{},{} */
+            /** 删除前后的 [{},{},{}] ==> {},{},{} */
             strBuilder.deleteCharAt(orgStr.length() - 1);
             strBuilder.deleteCharAt(0);
 
@@ -362,10 +358,8 @@ public class QSModel {
                 Object objectElement = qs_objectWithString(element);
                 arrayList.add(objectElement);
             }
-
             return arrayList;
         }
-
         System.out.println("解析失败：" +  "最外层的 {}、[]格式错误");
         return null;
     }
