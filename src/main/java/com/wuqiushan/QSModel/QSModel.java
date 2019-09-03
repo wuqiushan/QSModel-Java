@@ -21,13 +21,29 @@ public class QSModel {
      */
     public static <T extends Object> T qs_modelWithMap(Map<String, Object> map, Class<T> targetClass) {
 
-        if (map == null) { return null; }
+        if ( (map == null) || (targetClass == null) ) { return null; }
         T object = null;
         try {
+
+            // 反射实例化对象
             object = targetClass.getConstructor().newInstance();
-            // 通过反射获取(除父类外)所有属性包含private
-            Field[] fields = targetClass.getDeclaredFields();
-            // 循环去父类的字段
+
+            // 通过反射循环获取 本类 -> 父类 -> ... -> Object 所有的字段(包括private成员变量)
+            ArrayList<Field> fields = new ArrayList<>();
+            Class currentClass = targetClass;
+
+            while (currentClass != Object.class) {
+
+                /**
+                 * 1.获取当前类的成员变量
+                 * 2.把成员变量存入ArrayList中
+                 * 3.指向(相对本类的)父类
+                 */
+                Field[] fieldT = currentClass.getDeclaredFields();
+                fields.addAll(Arrays.asList(fieldT));
+
+                currentClass = currentClass.getSuperclass();
+            }
 
             // 遍历所有成员变量
             for (Field field : fields) {
@@ -77,11 +93,10 @@ public class QSModel {
                         mapValue = map.get(fieldName);
 
                         if ((mapValue.getClass() == LinkedHashMap.class) ||
-                                (mapValue.getClass() == HashMap.class) ||
                                 (mapValue.getClass() == TreeMap.class)) {
-                            System.out.println("来了");
+
+                            System.out.println(mapValue.getClass() + "转化不了");
                             mapValue = null;
-                            System.out.println("转化了");
                         }
                         else {
 
@@ -121,46 +136,45 @@ public class QSModel {
                     // 得到数组元素的类型
                     System.out.println("得到数组元素的类型" + targetType);
 
-                    // 获取到类型字符串时，转化为类型
+                    // 非普通数组 获取元素类型字符串，转化为类型
                     if (!targetType.equals("")) {
+
                         fieldType = Class.forName(targetType);
-                    }
 
-                    // 遍历字典的元素
-                    ArrayList<Object> arrayList = new ArrayList<>();
-                    for (Object element : (ArrayList)mapValue) {
+                        // 遍历字典的元素
+                        ArrayList<Object> arrayList = new ArrayList<>();
+                        for (Object element : (ArrayList)mapValue) {
 
-                        Object elementTmp = null;
-                        try {
-                            elementTmp = convertType(fieldType, element.getClass(), element);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                            Object elementTmp = null;
+                            try {
+                                elementTmp = convertType(fieldType, element.getClass(), element);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
-                        // 如果类型没有相等的，在基本类型又找不到，初步判断为对象
-                        if ((elementTmp.getClass() == Integer.class) && ((int)elementTmp == -1)) {
+                            // 如果类型没有相等的，在基本类型又找不到，初步判断为对象
+                            if ((elementTmp.getClass() == Integer.class) && ((int)elementTmp == -1)) {
 
 //                            elementTmp = map.get(fieldName);
-                            elementTmp = element;
+                                elementTmp = element;
 
-                            if ((elementTmp.getClass() == LinkedHashMap.class) ||
-                                    (elementTmp.getClass() == HashMap.class) ||
-                                    (elementTmp.getClass() == TreeMap.class)) {
-                                System.out.println("来了");
-                                elementTmp = null;
-                                System.out.println("转化了");
-                            }
-                            else {
+                                if ((elementTmp.getClass() == LinkedHashMap.class) ||
+                                        (elementTmp.getClass() == TreeMap.class)) {
 
-                                // 为Map类型的话
-                                if (elementTmp instanceof Map) {
-                                    elementTmp = qs_modelWithMap((Map<String, Object>) elementTmp, fieldType);
+                                    System.out.println(elementTmp.getClass() + "转化不了");
+                                    elementTmp = null;
+                                }
+                                else {
+                                    // 为Map类型的话
+                                    if (elementTmp instanceof Map) {
+                                        elementTmp = qs_modelWithMap((Map<String, Object>) elementTmp, fieldType);
+                                    }
                                 }
                             }
+                            arrayList.add(elementTmp);
                         }
-                        arrayList.add(elementTmp);
+                        mapValue = arrayList;
                     }
-                    mapValue = arrayList;
                 }
 
                 // 如果有值才设置
@@ -271,15 +285,20 @@ public class QSModel {
             HashMap<String, Object> hashMap = new HashMap<>();
 
             /** "key1":xx,"key2":"xx","key3":{"sub1":"xx", "sub2":"xx"},"key4":[] */
+            /** 分隔前用把 {、[、]、} 的部分替换成 %(时间错)% 原身存放字典 */
+            HashMap<String, String> subStrMap = splitMaxMatches(strBuilder, "[\\[\\]{}]{1}");
+
+            // 分隔
             String[] strings = strBuilder.toString().split(",");
+
             for (String element : strings) { // "xx":xx
 
-                /** 1.if(正则 "xx":"xx",) 为字符串String (频度大放最前面，减少判断开销) */
-                if (element.matches("^\"\\w+\":\"\\d+\"")) {
+                /** 1.if(正则 "xx":"xx",) 为字符串String及中文 (频度大放最前面，减少判断开销) */
+                if (element.matches("^\"\\w+\":\".*?\"")) {
 
                     int index    = element.indexOf(":");
                     String key   = element.substring(1, index - 1);
-                    String value = element.substring(index + 1, element.length() - 1);
+                    String value = element.substring(index + 2, element.length() - 1);
                     hashMap.put(key, value);
                 }
                 /** 2.if(正则 "xx":[.0-9]],) 为浮点Number  优先匹配因为[0-9]容易把该类型匹配走 */
@@ -287,7 +306,7 @@ public class QSModel {
 
                     int index    = element.indexOf(":");
                     String key   = element.substring(1, index - 1);
-                    String value = element.substring(index, element.length());
+                    String value = element.substring(index + 1, element.length());
                     Double valueDouble = Double.parseDouble(value);
                     hashMap.put(key, valueDouble);
                 }
@@ -296,7 +315,7 @@ public class QSModel {
 
                     int index    = element.indexOf(":");
                     String key   = element.substring(1, index - 1);
-                    String value = element.substring(index, element.length());
+                    String value = element.substring(index + 1, element.length());
                     Integer valueInt = Integer.parseInt(value);
                     hashMap.put(key, valueInt);
                 }
@@ -315,24 +334,37 @@ public class QSModel {
                     Boolean value = false;
                     hashMap.put(key, value);
                 }
-                /** 6.if(正则 "xx":[]) 为Array 递归 第一步 */
-                else if(element.matches("^\"\\w+\":\\[")) {
+                /** if(正则 "xx":%xxxxx) 为[、{、}、] (即: 数组或者字典时) 递归 */
+                else if (element.matches("^\"\\w+\":%\\w+%")) {
 
                     int index    = element.indexOf(":");
                     String key   = element.substring(1, index - 1);
-                    String value = element.substring(index, element.length());
-                    Object subObject = qs_objectWithString(value);
-                    hashMap.put(key, subObject);
+                    String value = element.substring(index + 1, element.length());
+                    /** 把原身值拿到 */
+                    String subStr = subStrMap.get(value);
+                    if (subStr != null) {
+                        Object subObject = qs_objectWithString(subStr);
+                        hashMap.put(key, subObject);
+                    }
                 }
-                /** 7.if(正则 "xx":{}) 为Map(Object) 递归 第一步 */
-                else if(element.matches("^\"\\w+\":\\{")) {
-
-                    int index    = element.indexOf(":");
-                    String key   = element.substring(1, index - 1);
-                    String value = element.substring(index, element.length());
-                    Object subObject = qs_objectWithString(value);
-                    hashMap.put(key, subObject);
-                }
+//                /** 6.if(正则 "xx":[]) 为Array 递归 第一步 */
+//                else if(element.matches("^\"\\w+\":\\[")) {
+//
+//                    int index    = element.indexOf(":");
+//                    String key   = element.substring(1, index - 1);
+//                    String value = element.substring(index, element.length());
+//                    Object subObject = qs_objectWithString(value);
+//                    hashMap.put(key, subObject);
+//                }
+//                /** 7.if(正则 "xx":{}) 为Map(Object) 递归 第一步 */
+//                else if(element.matches("^\"\\w+\":\\{")) {
+//
+//                    int index    = element.indexOf(":");
+//                    String key   = element.substring(1, index - 1);
+//                    String value = element.substring(index, element.length());
+//                    Object subObject = qs_objectWithString(value);
+//                    hashMap.put(key, subObject);
+//                }
                 /** 8.if(正则 "xx":"null") 为null */
                 else if(element.matches("^\"\\w+\":null")) {
 
@@ -342,6 +374,7 @@ public class QSModel {
                 }
                 else {
                     System.out.println("解析失败：" + element + " 格式错误");
+                    return null;
                 }
             }
 
@@ -357,9 +390,10 @@ public class QSModel {
             /** 存放转换后的元素 */
             ArrayList<Object> arrayList = new ArrayList<>();
 
-            /** {},{},{} 遍历后， 递归调用获取结束 */
-            String[] strings = strBuilder.toString().split(",");
-            for (String element : strings) {
+            /** {xx, xx}, {xx, xx}, {xx, xx} => {%UUID%: value, %UUID%: value} 字典 */
+            HashMap<String, String> subArrayMap = splitMaxMatches(strBuilder, "[\\[\\]{}]{1}");
+
+            for (String element : subArrayMap.values()) {
                 Object objectElement = qs_objectWithString(element);
                 arrayList.add(objectElement);
             }
@@ -369,5 +403,108 @@ public class QSModel {
 
         System.out.println("解析失败：" +  "最外层的 {}、[]格式错误");
         return null;
+    }
+
+    /**
+     * 查找并替换成 "%(时间错)" 例： "courses":[{"key":"语文"}, {"key":"数字"}]  => "courses":%15348723623
+     * 通过 %15348723623 从返回字典的里的查到替换的原始字符串 [{"key":"语文"}, {"key":"数字"}]
+     *
+     * @param text  需要匹配的字符串
+     * @param regex 匹配的正则表达式
+     * @return 返回 匹配后，替换的原始字符串，例：{"%15348723623": [{"key":"语文"}, {"key":"数字"}], ... };
+     */
+    public static HashMap<String, String> splitMaxMatches(StringBuilder text, String regex) {
+
+        /** 存放匹配到的字符 字典，"%153467267323":[{[xxx]}] */
+        HashMap<String, String> results = new HashMap<>();
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(text);
+
+        /** 采用堆栈是因为，这个场景堆栈更好用 */
+        Stack<String> stack = new Stack<>();
+        /** 保存位置信息，这里用堆栈是因为从字符后面开始换成%1523672534的话，不影响字符串前面
+         *  <Integer, Integer> key：代表起始位置， value：代表结束位置
+         * */
+        Stack<HashMap<String, Integer>> position = new Stack<>();
+        // 记录起始位置
+        Integer recordStartIndex = -1;
+
+        while (matcher.find()) {
+
+            // 含有[{ 就push, 含有}]且栈顶与此相等就弹出，否则格式错误
+            String matcherValue = matcher.group();
+            String peek = "";
+            if (!stack.empty()) {
+                peek = stack.peek();
+            }
+            if (matcherValue.equals("[") || matcherValue.equals("{")) {
+
+                /** 当堆栈有首个值时，记录起始位置 */
+                if (stack.empty()) {
+                    recordStartIndex = matcher.start();
+                }
+                stack.push(matcherValue);
+            }
+            else if ( (peek.equals("{") && (matcherValue.equals("}"))) ||
+                    (peek.equals("[") && (matcherValue.equals("]"))) ) {
+
+                /** 当没有记录值 直接来这里会出错 */
+                if (stack.empty() || (recordStartIndex == -1)) {
+                    System.out.println("解析失败，格式错误");
+                    return null;
+                }
+                stack.pop();
+
+                /** 当堆栈无任何值时，记录结束位置，注意此时不能直接替换字符，会影响整体位置 */
+                if (stack.empty()) {
+
+                    // 把位置信息先存入 位置堆栈中
+                    HashMap<String, Integer> map = new HashMap<>();
+                    map.put("startIndex", recordStartIndex);
+                    map.put("endIndex", matcher.end());
+                    position.push(map);
+
+                    // 复位记录值
+                    recordStartIndex = -1;
+                }
+            }
+            else {
+                System.out.println("解析失败，格式错误");
+                return null;
+            }
+        }
+
+        /** 如果最后不为空就返回错 */
+        if (!stack.empty()) {
+            return null;
+        }
+
+        /** 取出位置堆栈的位置(因为是从顶部取位置，即从后面开始替换，保证了前面位置安全)，把位置用 %(时间错替换) */
+        HashMap<String, Integer> indexMap = new HashMap<>();
+        while (!position.empty()) {
+            indexMap = position.pop();
+            int startIndex = indexMap.get("startIndex");
+            int endIndex = indexMap.get("endIndex");
+            if ((startIndex <= endIndex) && (endIndex <= text.length())) {
+
+                /**
+                 * 生成时间错(String.valueOf(new Date().getTime()))，因时间错精确到ms，如果程序在1ms完成，
+                 * 此时生成的key都会相同，存入字典时会覆盖。现改成UUID
+                 * 替换掉指定的位置
+                 * */
+                String subText = text.substring(startIndex, endIndex);
+                String timeText = "%" + UUID.randomUUID().toString().replace("-", "") + "%";
+                text = text.replace(startIndex, endIndex, timeText);
+
+                // 存入返回值
+                results.put(timeText, subText);
+            }
+            else {
+                return null;
+            }
+        }
+
+        return results;
     }
 }
