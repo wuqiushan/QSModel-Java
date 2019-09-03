@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 public class QSModel {
 
     /**
-     *
+     * Map 转 Model
      * @param map  Json字典
      * @param targetClass 目标类的类型
      * @param <T> 任意泛形，一定是个引用类型，而不是值类型
@@ -60,25 +60,8 @@ public class QSModel {
                     continue;
                 }
 
-                if (fieldName.equals("address")) {
-//                    mapValue = (int)120;
-                    System.out.println("test");
-                }
-                if (fieldName.equals("addressA")) {
-//                    mapValue = (int)120;
-                    System.out.println("test");
-                }
-                if (fieldName.equals("courses")) {
-                    System.out.println("test");
-                }
-                if (fieldName.equals("coursesA")) {
-                    System.out.println("test");
-                }
-
                 // 设置值到对象里，设置前，把允许打开
                 field.setAccessible(true);
-//                System.out.println(">>>1" + mapValue.getClass());
-//                System.out.println(">>>2" + fieldType);
                 if (mapValue.getClass() != fieldType) {
 
                     try {
@@ -347,24 +330,6 @@ public class QSModel {
                         hashMap.put(key, subObject);
                     }
                 }
-//                /** 6.if(正则 "xx":[]) 为Array 递归 第一步 */
-//                else if(element.matches("^\"\\w+\":\\[")) {
-//
-//                    int index    = element.indexOf(":");
-//                    String key   = element.substring(1, index - 1);
-//                    String value = element.substring(index, element.length());
-//                    Object subObject = qs_objectWithString(value);
-//                    hashMap.put(key, subObject);
-//                }
-//                /** 7.if(正则 "xx":{}) 为Map(Object) 递归 第一步 */
-//                else if(element.matches("^\"\\w+\":\\{")) {
-//
-//                    int index    = element.indexOf(":");
-//                    String key   = element.substring(1, index - 1);
-//                    String value = element.substring(index, element.length());
-//                    Object subObject = qs_objectWithString(value);
-//                    hashMap.put(key, subObject);
-//                }
                 /** 8.if(正则 "xx":"null") 为null */
                 else if(element.matches("^\"\\w+\":null")) {
 
@@ -406,16 +371,16 @@ public class QSModel {
     }
 
     /**
-     * 查找并替换成 "%(时间错)" 例： "courses":[{"key":"语文"}, {"key":"数字"}]  => "courses":%15348723623
-     * 通过 %15348723623 从返回字典的里的查到替换的原始字符串 [{"key":"语文"}, {"key":"数字"}]
+     * 查找并替换成 "%UUID%" 例： "courses":[{"key":"语文"}, {"key":"数字"}]  => "courses":%UUID%
+     * 通过 %UUID% 从返回字典的里的查到替换的原始字符串 [{"key":"语文"}, {"key":"数字"}]
      *
      * @param text  需要匹配的字符串
      * @param regex 匹配的正则表达式
-     * @return 返回 匹配后，替换的原始字符串，例：{"%15348723623": [{"key":"语文"}, {"key":"数字"}], ... };
+     * @return 返回 匹配后，替换的原始字符串，例：{"%UUID%": [{"key":"语文"}, {"key":"数字"}], ... };
      */
     public static HashMap<String, String> splitMaxMatches(StringBuilder text, String regex) {
 
-        /** 存放匹配到的字符 字典，"%153467267323":[{[xxx]}] */
+        /** 存放匹配到的字符 字典，"%UUID%":[{[xxx]}] */
         HashMap<String, String> results = new HashMap<>();
 
         Pattern pattern = Pattern.compile(regex);
@@ -423,8 +388,9 @@ public class QSModel {
 
         /** 采用堆栈是因为，这个场景堆栈更好用 */
         Stack<String> stack = new Stack<>();
-        /** 保存位置信息，这里用堆栈是因为从字符后面开始换成%1523672534的话，不影响字符串前面
-         *  <Integer, Integer> key：代表起始位置， value：代表结束位置
+        /** 保存位置信息，这里用堆栈是因为从字符后面开始换成%UUID%的话，不影响字符串前面
+         *  <String, Integer> startIndex：代表起始位置
+         *                    endIndex: 代表结束位置
          * */
         Stack<HashMap<String, Integer>> position = new Stack<>();
         // 记录起始位置
@@ -475,36 +441,33 @@ public class QSModel {
             }
         }
 
-        /** 如果最后不为空就返回错 */
+        /** 如果最后不为空，即括号没有一一对应，错误处理 */
         if (!stack.empty()) {
             return null;
         }
 
-        /** 取出位置堆栈的位置(因为是从顶部取位置，即从后面开始替换，保证了前面位置安全)，把位置用 %(时间错替换) */
-        HashMap<String, Integer> indexMap = new HashMap<>();
+        /** 从堆栈的顶部取位置对象(即从后往前替换)，保证了前面替换时位置安全，替身为%UUID% */
         while (!position.empty()) {
-            indexMap = position.pop();
+            HashMap<String, Integer> indexMap = position.pop();
             int startIndex = indexMap.get("startIndex");
             int endIndex = indexMap.get("endIndex");
             if ((startIndex <= endIndex) && (endIndex <= text.length())) {
 
                 /**
-                 * 生成时间错(String.valueOf(new Date().getTime()))，因时间错精确到ms，如果程序在1ms完成，
-                 * 此时生成的key都会相同，存入字典时会覆盖。现改成UUID
-                 * 替换掉指定的位置
+                 * 1.不使用，时间错(String.valueOf(new Date().getTime()))，因时间错精确到ms，
+                 * 2.如果程序在1ms完成，此时生成的key都会相同，存入字典时会覆盖。现改成UUID，这样保证唯一
+                 * 3.替换掉指定的位置
+                 * 4.添加到字典中
                  * */
                 String subText = text.substring(startIndex, endIndex);
                 String timeText = "%" + UUID.randomUUID().toString().replace("-", "") + "%";
                 text = text.replace(startIndex, endIndex, timeText);
-
-                // 存入返回值
                 results.put(timeText, subText);
             }
             else {
                 return null;
             }
         }
-
         return results;
     }
 }
