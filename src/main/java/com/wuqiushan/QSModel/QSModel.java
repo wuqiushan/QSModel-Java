@@ -464,4 +464,100 @@ public class QSModel {
         }
         return results;
     }
+
+    /**
+     *
+     * @param object
+     * @return
+     */
+    public static String qs_stringWithObject(Object object) {
+
+        /** 存储可变字符串 */
+        StringBuilder result = new StringBuilder();
+
+        // 是字典时
+        if (object instanceof HashMap) {
+
+            result.append("{");
+            // 遍历字典
+            for (Map.Entry<Object, Object> entry : ((HashMap<Object, Object>)object).entrySet()) {
+                /** key不为字符串，不解析 */
+                if (!(entry.getKey() instanceof String)) {
+                    return null;
+                }
+                if (entry.getValue() == null) {
+                    result.append("\"" + entry.getKey() + "\":null");
+                }
+                String className = entry.getValue().getClass().getName();
+                String valueStr = "null";
+                switch (className) {
+
+                    case "java.lang.String":
+                        valueStr = "\"" + (String)entry.getValue() + "\"";
+                        break;
+                    case "java.lang.Double":
+                    case "double":
+                        valueStr = String.valueOf((Double)entry.getValue());
+                        break;
+                    case "java.lang.Integer":
+                    case "int":
+                        valueStr = String.valueOf((Integer)entry.getValue());
+                        break;
+                    case "java.lang.Boolean":
+                    case "boolean":
+                        Boolean value = (Boolean) entry.getValue();
+                        if (value == true) {
+                            valueStr = "true";
+                        } else {
+                            valueStr = "false";
+                        }
+                        break;
+                    case "java.lang.Byte":
+                    case "byte":
+                        valueStr = String.valueOf((Byte)entry.getValue());
+                        break;
+                    case "java.lang.Character":
+                    case "char":
+                        valueStr = String.valueOf((Character)entry.getValue());
+                        break;
+                    case "java.lang.Long":
+                    case "long":
+                        valueStr = String.valueOf((Long)entry.getValue());
+                        break;
+                    case "java.lang.Short":
+                    case "short":
+                        valueStr = String.valueOf((Short)entry.getValue());
+                        break;
+                    default:
+                        valueStr = null;
+                        break;
+                }
+
+                if (valueStr == null) {
+                    String subStr = qs_stringWithObject((Object)entry.getValue());
+                }
+
+                if (valueStr != null) {
+                    result.append("\"" + entry.getKey() + "\":" + valueStr);
+                }
+                else {
+                    System.out.println("解析失败");
+                    return null;
+                }
+            }
+
+            result.append("}");
+            return result.toString();
+        }
+        else if (object instanceof ArrayList) {
+
+            result.append("[");
+
+
+            result.append("]");
+            return result.toString();
+        }
+
+        return null;
+    }
 }
