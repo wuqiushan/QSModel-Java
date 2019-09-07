@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="09924d7c-98a1-4056-b241-d65daa6e61a3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wuqiushan/QSModel/QSModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wuqiushan/QSModel/QSModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/wuqiushan/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/wuqiushan/AppTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -19,11 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/wuqiushan/QSModel/QSModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="535" column="39" lean-forward="true" selection-start-line="535" selection-start-column="39" selection-end-line="535" selection-end-column="39" />
+            <state relative-caret-position="316">
+              <caret line="253" selection-start-line="253" selection-end-line="253" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -32,27 +32,9 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home/lib/src.zip!/java.base/java/lang/String.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="132" column="25" lean-forward="true" selection-start-line="132" selection-start-column="25" selection-end-line="132" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home/lib/src.zip!/java.base/java/util/HashMap.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="999" column="31" selection-start-line="999" selection-start-column="31" selection-end-line="999" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.11/junit-4.11.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
+            <state relative-caret-position="280">
               <caret line="17" selection-start-line="17" selection-end-line="17" />
             </state>
           </provider>
@@ -61,7 +43,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/testModel/Student.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
+            <state relative-caret-position="80">
               <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -70,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/AppTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
+            <state relative-caret-position="61">
+              <caret line="42" column="35" lean-forward="true" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -85,7 +67,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
+            <state relative-caret-position="380">
               <caret line="19" selection-start-line="19" selection-end-line="19" />
             </state>
           </provider>
@@ -109,8 +91,8 @@
       <find>qs_objectWithString</find>
       <find>qs_modelWithMap</find>
       <find>targetClass</find>
-      <find>splitMaxMatches</find>
       <find>hashMap</find>
+      <find>splitMaxMatches</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -150,7 +132,7 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="640" />
+    <option name="x" value="187" />
     <option name="y" value="23" />
     <option name="width" value="1920" />
     <option name="height" value="1057" />
@@ -160,6 +142,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -248,7 +231,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -272,23 +254,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.AppTest.testModelWithMap (1)">
-    <configuration name="AppTest.shouldAnswerWithTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="QSModel-Java" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.wuqiushan.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.wuqiushan" />
-      <option name="MAIN_CLASS_NAME" value="com.wuqiushan.AppTest" />
-      <option name="METHOD_NAME" value="shouldAnswerWithTrue" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.AppTest.testStringWithMap">
     <configuration name="AppTest.testMapWithString" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="QSModel-Java" />
       <extension name="coverage">
@@ -353,13 +319,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AppTest.testStringWithMap" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="QSModel-Java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.wuqiushan.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.wuqiushan" />
+      <option name="MAIN_CLASS_NAME" value="com.wuqiushan.AppTest" />
+      <option name="METHOD_NAME" value="testStringWithMap" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.AppTest.testStringWithMap" />
         <item itemvalue="JUnit.AppTest.testModelWithMap (1)" />
         <item itemvalue="JUnit.AppTest.testModelWithMap" />
         <item itemvalue="JUnit.AppTest.testMapWithString" />
         <item itemvalue="JUnit.AppTest.testRegex" />
-        <item itemvalue="JUnit.AppTest.shouldAnswerWithTrue" />
       </list>
     </recent_temporary>
   </component>
@@ -376,22 +358,11 @@
       <workItem from="1567472302494" duration="20269000" />
       <workItem from="1567515599110" duration="6265000" />
       <workItem from="1567776621653" duration="5667000" />
+      <workItem from="1567850560295" duration="1751000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="AppTest_testModelWithMap - 2019.09.03 at 15h 30m 47s.xml">
-      <configuration name="AppTest.testModelWithMap" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AppTest_testModelWithMap - 2019.09.03 at 15h 36m 18s.xml">
-      <configuration name="AppTest.testModelWithMap" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AppTest_testModelWithMap - 2019.09.03 at 15h 37m 42s.xml">
-      <configuration name="AppTest.testModelWithMap" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AppTest_testModelWithMap - 2019.09.03 at 15h 39m 48s.xml">
-      <configuration name="AppTest.testModelWithMap" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="AppTest_testModelWithMap - 2019.09.03 at 15h 50m 04s.xml">
       <configuration name="AppTest.testModelWithMap" configurationId="JUnit" />
     </history-entry>
@@ -410,9 +381,21 @@
     <history-entry file="AppTest_testModelWithMap_(1) - 2019.09.03 at 22h 56m 22s.xml">
       <configuration name="AppTest.testModelWithMap (1)" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="AppTest_testStringWithMap - 2019.09.07 at 18h 09m 37s.xml">
+      <configuration name="AppTest.testStringWithMap" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AppTest_testStringWithMap - 2019.09.07 at 18h 29m 35s.xml">
+      <configuration name="AppTest.testStringWithMap" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AppTest_testStringWithMap - 2019.09.07 at 18h 31m 37s.xml">
+      <configuration name="AppTest.testStringWithMap" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AppTest_testStringWithMap - 2019.09.07 at 18h 32m 42s.xml">
+      <configuration name="AppTest.testStringWithMap" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51101000" />
+    <option name="totallyTimeSpent" value="52852000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -424,11 +407,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="640" y="23" width="1920" height="1057" extended-state="0" />
+    <frame x="187" y="23" width="1920" height="1057" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6601036" visible="true" weight="0.2630458" />
-      <window_info id="Structure" order="1" sideWeight="0.33989638" side_tool="true" visible="true" weight="0.2630458" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.65906733" visible="true" weight="0.2657082" />
+      <window_info id="Structure" order="1" sideWeight="0.34093264" side_tool="true" visible="true" weight="0.2657082" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -438,7 +421,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.4580311" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4580311" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39378238" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32953367" />
@@ -468,27 +451,15 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/wuqiushan/AppTest.java</url>
-          <line>38</line>
+          <line>52</line>
           <properties />
-          <option name="timeStamp" value="88" />
+          <option name="timeStamp" value="100" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/wuqiushan/AppTest.java</url>
-          <line>36</line>
+          <line>54</line>
           <properties />
-          <option name="timeStamp" value="95" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/wuqiushan/QSModel/QSModel.java</url>
-          <line>464</line>
-          <properties />
-          <option name="timeStamp" value="97" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/wuqiushan/QSModel/QSModel.java</url>
-          <line>544</line>
-          <properties />
-          <option name="timeStamp" value="98" />
+          <option name="timeStamp" value="102" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -565,27 +536,19 @@
     <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/util/HashMap.class" />
     <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/lang/Object.class" />
     <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/lang/Class.class" />
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home/lib/src.zip!/java.base/java/util/HashMap.java" />
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home/lib/src.zip!/java.base/java/lang/String.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.11/junit-4.11.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
+        <state relative-caret-position="280">
           <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/testModel/Student.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
+        <state relative-caret-position="80">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/AppTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -594,29 +557,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
+        <state relative-caret-position="380">
           <caret line="19" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home/lib/src.zip!/java.base/java/util/HashMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="999" column="31" selection-start-line="999" selection-start-column="31" selection-end-line="999" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home/lib/src.zip!/java.base/java/lang/String.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="132" column="25" lean-forward="true" selection-start-line="132" selection-start-column="25" selection-end-line="132" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/wuqiushan/QSModel/QSModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="535" column="39" lean-forward="true" selection-start-line="535" selection-start-column="39" selection-end-line="535" selection-end-column="39" />
+        <state relative-caret-position="316">
+          <caret line="253" selection-start-line="253" selection-end-line="253" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/AppTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="61">
+          <caret line="42" column="35" lean-forward="true" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

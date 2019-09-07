@@ -489,52 +489,12 @@ public class QSModel {
                     result.append("\"" + entry.getKey() + "\":null");
                 }
                 String className = entry.getValue().getClass().getName();
-                String valueStr = "null";
-                switch (className) {
+                Object elementValue = entry.getValue();
+                String valueStr = stringWithType(className, elementValue);
 
-                    case "java.lang.String":
-                        valueStr = "\"" + (String)entry.getValue() + "\"";
-                        break;
-                    case "java.lang.Double":
-                    case "double":
-                        valueStr = String.valueOf((Double)entry.getValue());
-                        break;
-                    case "java.lang.Integer":
-                    case "int":
-                        valueStr = String.valueOf((Integer)entry.getValue());
-                        break;
-                    case "java.lang.Boolean":
-                    case "boolean":
-                        Boolean value = (Boolean) entry.getValue();
-                        if (value == true) {
-                            valueStr = "true";
-                        } else {
-                            valueStr = "false";
-                        }
-                        break;
-                    case "java.lang.Byte":
-                    case "byte":
-                        valueStr = String.valueOf((Byte)entry.getValue());
-                        break;
-                    case "java.lang.Character":
-                    case "char":
-                        valueStr = String.valueOf((Character)entry.getValue());
-                        break;
-                    case "java.lang.Long":
-                    case "long":
-                        valueStr = String.valueOf((Long)entry.getValue());
-                        break;
-                    case "java.lang.Short":
-                    case "short":
-                        valueStr = String.valueOf((Short)entry.getValue());
-                        break;
-                    default:
-                        valueStr = null;
-                        break;
-                }
-
+                // 如果基础类型不是的话，就做为对象找
                 if (valueStr == null) {
-                    String subStr = qs_stringWithObject((Object)entry.getValue());
+                    valueStr = qs_stringWithObject((Object)elementValue);
                 }
 
                 if (valueStr != null) {
@@ -553,11 +513,78 @@ public class QSModel {
 
             result.append("[");
 
+            for (Object element : (ArrayList)object) {
+
+                String className = element.getClass().getName();
+                String valueStr = stringWithType(className, element);
+
+                // 如果基础类型不是的话，就做为对象找
+                if (valueStr == null) {
+                    valueStr = qs_stringWithObject((Object)element);
+                }
+
+                if (valueStr != null) {
+                    result.append(valueStr);
+                }
+                else {
+                    System.out.println("解析失败");
+                    return null;
+                }
+            }
 
             result.append("]");
             return result.toString();
         }
 
         return null;
+    }
+
+    /** 把值按指定的类型转化为字符串 */
+    private static String stringWithType(String className, Object value) {
+
+        String valueStr = "null";
+        switch (className) {
+
+            case "java.lang.String":
+                valueStr = "\"" + (String)value + "\"";
+                break;
+            case "java.lang.Double":
+            case "double":
+                valueStr = String.valueOf((Double)value);
+                break;
+            case "java.lang.Integer":
+            case "int":
+                valueStr = String.valueOf((Integer)value);
+                break;
+            case "java.lang.Boolean":
+            case "boolean":
+                Boolean valueBool = (Boolean) value;
+                if (valueBool == true) {
+                    valueStr = "true";
+                } else {
+                    valueStr = "false";
+                }
+                break;
+            case "java.lang.Byte":
+            case "byte":
+                valueStr = String.valueOf((Byte)value);
+                break;
+            case "java.lang.Character":
+            case "char":
+                valueStr = String.valueOf((Character)value);
+                break;
+            case "java.lang.Long":
+            case "long":
+                valueStr = String.valueOf((Long)value);
+                break;
+            case "java.lang.Short":
+            case "short":
+                valueStr = String.valueOf((Short)value);
+                break;
+            default:
+                valueStr = null;
+                break;
+        }
+        return valueStr;
     }
 }
