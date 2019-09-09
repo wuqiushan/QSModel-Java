@@ -52,6 +52,10 @@ public class AppTest
         // Map => Model
         String str = QSModel.qs_stringWithObject(map);
 
+        Map<String, Object> map1 = (Map<String, Object>)QSModel.qs_objectWithString(jsonStr);
+
+        Student student = QSModel.qs_modelWithMap(map1, Student.class);
+
         System.out.println(map);
     }
 

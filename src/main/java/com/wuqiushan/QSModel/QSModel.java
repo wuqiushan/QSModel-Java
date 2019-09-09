@@ -486,7 +486,8 @@ public class QSModel {
                     return null;
                 }
                 if (entry.getValue() == null) {
-                    result.append("\"" + entry.getKey() + "\":null");
+                    result.append("\"" + entry.getKey() + "\":null,");
+                    continue;
                 }
                 String className = entry.getValue().getClass().getName();
                 Object elementValue = entry.getValue();
@@ -498,12 +499,17 @@ public class QSModel {
                 }
 
                 if (valueStr != null) {
-                    result.append("\"" + entry.getKey() + "\":" + valueStr);
+                    result.append("\"" + entry.getKey() + "\":" + valueStr + ",");
                 }
                 else {
                     System.out.println("解析失败");
                     return null;
                 }
+            }
+
+            // 判断最后一个字符是不是 , 如果是，就删除掉 ( }、] 前前面去掉,号)
+            if (result.charAt(result.length() - 1) == ',') {
+                result.deleteCharAt(result.length() - 1);
             }
 
             result.append("}");
@@ -524,12 +530,17 @@ public class QSModel {
                 }
 
                 if (valueStr != null) {
-                    result.append(valueStr);
+                    result.append(valueStr + ",");
                 }
                 else {
                     System.out.println("解析失败");
                     return null;
                 }
+            }
+
+            // 判断最后一个字符是不是 , 如果是，就删除掉 ( }、] 前前面去掉,号)
+            if (result.charAt(result.length() - 1) == ',') {
+                result.deleteCharAt(result.length() - 1);
             }
 
             result.append("]");
