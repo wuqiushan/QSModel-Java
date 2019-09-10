@@ -5,12 +5,21 @@ import com.google.gson.internal.LinkedTreeMap;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
+import java.security.cert.Extension;
 import java.util.*;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class QSModel {
+
+    public static <T extends Object> HashMap qs_mapWithModel(T object) {
+
+        if (object == null) { return null; }
+        HashMap<String, Object> map = new HashMap<>();
+
+        return null;
+    }
 
     /**
      * Map 转 Model
