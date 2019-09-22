@@ -59,6 +59,23 @@ public class AppTest
         System.out.println(map);
     }
 
+    @Test
+    public void testMapWithModel()
+    {
+        assertTrue( true );
+        // 读取JSON文件
+        String jsonStr = ReadJsonFile.readJsonFile();
+        System.out.println(jsonStr);
+
+        // String => Map
+        Map<String, Object> map = (Map<String, Object>)QSModel.qs_objectWithString(jsonStr);
+        Student student = QSModel.qs_modelWithMap(map, Student.class);
+
+        HashMap map1 = QSModel.qs_mapWithModel(student);
+
+        System.out.println(map);
+    }
+
 
     @Test
     public void testMapWithString() {

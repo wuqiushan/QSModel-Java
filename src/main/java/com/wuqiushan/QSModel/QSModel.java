@@ -18,8 +18,67 @@ public class QSModel {
         if (object == null) { return null; }
         HashMap<String, Object> map = new HashMap<>();
 
-        return null;
+        Class currentClass = object.getClass();
+
+        // 通过反射循环获取 本类 -> 父类 -> ... -> Object 所有的字段(包括private成员变量)
+        ArrayList<Field> fields = new ArrayList<>();
+        while (currentClass != Object.class) {
+            Field[] fieldT = currentClass.getDeclaredFields();
+            fields.addAll(Arrays.asList(fieldT));
+            currentClass = currentClass.getSuperclass();
+        }
+
+        // 遍历所有成员变量
+        for (Field field : fields) {
+
+            String fieldName = field.getName();
+            Class<?> fieldType = field.getType();
+            field.setAccessible(true);
+
+            Object fieldValue = null;
+            try {
+                 fieldValue = field.get(object);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+            String targetType = fieldType.getTypeName();
+            Boolean isTargetType = false;
+            switch (targetType) {
+                case "java.lang.String":
+                case "java.lang.Double":
+                case "double":
+                case "java.lang.Integer":
+                case "int":
+                case "java.lang.Boolean":
+                case "boolean":
+                case "java.lang.Byte":
+                case "byte":
+                case "java.lang.Character":
+                case "char":
+                case "java.lang.Long":
+                case "long":
+                case "java.lang.Short":
+                case "short":
+                case "java.util.HashMap":
+                    isTargetType = true;
+                    break;
+                default:
+                    isTargetType = false;
+                    break;
+            }
+            if (isTargetType == true) {
+                map.put(fieldName, fieldValue);
+            }
+            else {
+                map.put(fieldName, qs_mapWithModel(fieldValue));
+            }
+
+            // 处理数组的的东西
+        }
+        return map;
     }
+
 
     /**
      * Map 转 Model
