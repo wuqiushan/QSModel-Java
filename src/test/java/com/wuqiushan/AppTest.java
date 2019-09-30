@@ -2,6 +2,7 @@ package com.wuqiushan;
 
 import static org.junit.Assert.assertTrue;
 
+import com.google.gson.Gson;
 import com.wuqiushan.QSModel.QSModel;
 import com.wuqiushan.testModel.ReadJsonFile;
 import com.wuqiushan.testModel.Student;
@@ -37,6 +38,47 @@ public class AppTest
         Student student = QSModel.qs_modelWithMap(map, Student.class);
 
         System.out.println(map);
+    }
+
+
+    @Test
+    public void testNestingStringWithMap() {
+
+        // 第三层
+        HashMap<String, Object> suenMap = new HashMap<>();
+        suenMap.put("summaryId", "sum123");
+        suenMap.put("mapId", "map123");
+
+        // 第二层
+        HashMap<String, Object> subMap = new HashMap<>();
+        subMap.put("type", "type123");
+        subMap.put("jsonData", QSModel.qs_stringWithObject(suenMap));
+
+        // 第一层
+        HashMap<String, Object> tmpMap = new HashMap<>();
+        tmpMap.put("id", "id123");
+        tmpMap.put("command", QSModel.qs_stringWithObject(subMap));
+
+        String gsonStr = QSModel.qs_stringWithObject(tmpMap);
+        System.out.println(gsonStr);
+
+//        // 第三层
+//        HashMap<String, Object> suenMap = new HashMap<>();
+//        suenMap.put("summaryId", "sum123");
+//        suenMap.put("mapId", "map123");
+//
+//        // 第二层
+//        HashMap<String, Object> subMap = new HashMap<>();
+//        subMap.put("type", "type123");
+//        subMap.put("jsonData", new Gson().toJson(suenMap));
+//
+//        // 第一层
+//        HashMap<String, Object> tmpMap = new HashMap<>();
+//        tmpMap.put("id", "id123");
+//        tmpMap.put("command", new Gson().toJson(subMap));
+//
+//        String gsonStr = new Gson().toJson(tmpMap);
+//        System.out.println(gsonStr);
     }
 
     @Test
@@ -79,6 +121,7 @@ public class AppTest
 
     @Test
     public void testMapWithString() {
+//        String str = "{\"id\":\"MOONA21543202291701\",\"command\":{\"jsonData\":\"{\\\"summaryId\\\":\\\"5d8d78c15cc18d03ca0b09e7\\\",\\\"mapId\\\":\\\"{\\\\\\\"test\\\\\\\":\\\\\\\"5d8d78c15cc18d03ca0b09e7\\\\\\\"}\\\"}\",\"cmd\":\"close_team\",\"type\":17}}";
         String str = "{    \"id\":\"2462079046\",    \"name\": \"张三\",    \"age\":\"22\",    \"weight\":120.0,   \"six\":false,    \"address\":{        \"country\": \"中国\",        \"province\": \"湖南省\"    },    \"addressA\":{        \"country\": \"中国\",        \"province\": \"台湾省\"    },    \"courses\":[        {            \"name\": \"物理\",            \"duration\": 30        },        {            \"name\": \"化学\",            \"duration\": 45        }    ],    \"coursesA\":[        {            \"name\": \"物理\",            \"duration\": 30        },        {            \"name\": \"化学\",            \"duration\": 45        }    ],    \"birthday\": \"1996-03-28 05:27:31.050\"}";
         Object hashMap = QSModel.qs_objectWithString(str);
         System.out.println(hashMap);

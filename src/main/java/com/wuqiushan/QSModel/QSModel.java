@@ -317,7 +317,7 @@ public class QSModel {
         // 解析前：去除所有空格 \r \n 等字符
         orgStr = orgStr.replace("\r", "");
         orgStr = orgStr.replace("\n", "");
-        orgStr = orgStr.replace(" ", "");
+        orgStr = removeSpace(orgStr);
 
         if (orgStr.length() == 0) { return null; }
         StringBuilder strBuilder = new StringBuilder(orgStr);
@@ -341,8 +341,18 @@ public class QSModel {
 
             for (String element : strings) {
 
+                /** 0.if(正则 "xx":"%xxxxx%") (即: 是字符串但是里面为[、{、}、] 时的处理斜杠 ) */
+                if (element.matches("^\"\\w+\":\"%\\w+%\"")) {
+
+                    int index    = element.indexOf(":");
+                    String key   = element.substring(1, index - 1);
+                    String value = element.substring(index + 2, element.length() -1);
+                    /** 把原身值拿到 */
+                    String subStr = subStrMap.get(value);
+                    hashMap.put(key, parseSlash(subStr));
+                }
                 /** 1.if(正则 "xx":"xx",) 为字符串String及中文 (频度大放最前面，减少判断开销) */
-                if (element.matches("^\"\\w+\":\".*?\"")) {
+                else if (element.matches("^\"\\w+\":\".*?\"")) {
 
                     int index    = element.indexOf(":");
                     String key   = element.substring(1, index - 1);
@@ -430,6 +440,113 @@ public class QSModel {
         }
         System.out.println("解析失败：" +  "最外层的 {}、[]格式错误");
         return null;
+    }
+
+    /***
+     * 去掉空格，"" 引号里面的内容结构不破坏
+     * 1.把字符串里的""全部找出来原身全部放在字典里
+     * 2.去掉空格
+     * 3.把字典里的值重新放回字符串里
+     * @param orgStr 原字符串
+     * @return 处理后的字符串
+     */
+    private static String removeSpace(String orgStr) {
+
+        StringBuilder resultStr = new StringBuilder(orgStr);
+        String resultString = "";
+        HashMap<String, String> map = new HashMap<>();
+
+        Matcher matcher = Pattern.compile("\".*?\"").matcher(resultStr);
+        StringBuilder tmpStr = new StringBuilder(resultStr.toString());
+        int index = 0;
+        int offset = 0;
+
+        while (matcher.find()) {
+
+            System.out.println(matcher.group());
+            // 替换，并把原身存在字典里
+            String keyStr = "%" + String.valueOf(index) + "%";
+            map.put(keyStr, matcher.group());
+            tmpStr = tmpStr.replace(matcher.start() + offset, matcher.end() + offset, keyStr);
+            offset += keyStr.length() - matcher.group().length();
+            index ++;
+        }
+
+        resultString = tmpStr.toString();
+        resultString = resultString.replace(" ", "");
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            resultString = resultString.replace(entry.getKey(), entry.getValue());
+        }
+
+        return resultString;
+    }
+
+
+    /** 对于字符串 减除斜杠 "{}" 或者 "[]" 的 斜杠 处理 */
+    private static String parseSlash(String orgStr) {
+
+        if (orgStr == null) {
+            return null;
+        }
+        /** 存储首尾两个字符 */
+        Character headChar = orgStr.charAt(0);
+        Character tailChar = orgStr.charAt(orgStr.length() - 1);
+        StringBuilder targetStr = new StringBuilder(orgStr.substring(1, orgStr.length() - 1));
+        HashMap<String, String> strMap = splitMaxMatches(targetStr, "[\\[\\]{}]{1}");
+
+        // 首层必须为 \" 多了或者少了都示为错误 去掉\
+        Matcher matcher = Pattern.compile("\"").matcher(targetStr.toString());
+        int offset = 0; // 整体字符串偏移量，当删除一个字符串时，后面的index 也要相应的减1
+        while (matcher.find()) {
+
+            int start = matcher.start() - offset;
+            if (start > 0) { start -- ; }
+            System.out.println(targetStr.charAt(start));
+            if (targetStr.charAt(start) == '\\') {
+                targetStr.deleteCharAt(start);
+                offset ++;
+            }
+            else {
+                System.out.println("解析失败：" +  orgStr);
+                return null;
+            }
+
+            if (start > 0) { start -- ; }
+            if (targetStr.charAt(start) == '\\') {
+                System.out.println("解析失败：" +  orgStr);
+                return null;
+            }
+        }
+        targetStr.insert(0, headChar);
+        targetStr.append(tailChar);
+        orgStr = targetStr.toString();
+
+        // 遍历字典 第二层或者第n层，必须大于 \\\" 去掉 \\
+        for (String keyStr : strMap.keySet()) {
+
+            StringBuilder subTargetStr = new StringBuilder(strMap.get(keyStr));
+            matcher = Pattern.compile("\"").matcher(subTargetStr.toString());
+            offset = 0;
+
+            while (matcher.find()) {
+
+                int start = matcher.start() - offset;
+                if (start > 1) { start -= 2 ; }
+
+                if (subTargetStr.substring(start, start + 2).equals("\\\\")) {
+                    subTargetStr.delete(start, start + 2);
+                    offset += 2;
+                }
+                else {
+                    System.out.println("解析失败：" +  subTargetStr.toString());
+                    return null;
+                }
+            }
+
+            // 替换
+            orgStr = orgStr.replace(keyStr, subTargetStr.toString());
+        }
+        return orgStr;
     }
 
     /**
@@ -534,9 +651,9 @@ public class QSModel {
     }
 
     /**
-     *
-     * @param object
-     * @return
+     * HashMap或者ArrayList 转 String
+     * @param object HashMap或者ArrayList类型的原值
+     * @return 转化后的结果
      */
     public static String qs_stringWithObject(Object object) {
 
@@ -559,6 +676,12 @@ public class QSModel {
                 }
                 String className = entry.getValue().getClass().getName();
                 Object elementValue = entry.getValue();
+
+                // "{\"id\": 123 }" "[]" 等情况处理
+                if (elementValue instanceof String) {
+                    elementValue = seriesSlash((String) elementValue);
+                }
+
                 String valueStr = stringWithType(className, elementValue);
 
                 // 如果基础类型不是的话，就做为对象找
@@ -616,6 +739,39 @@ public class QSModel {
         }
 
         return null;
+    }
+
+    /** 对于字符串 增加斜杠 "{}" 或者 "[]" 的 斜杠 处理 */
+    private static String seriesSlash(String orgStr) {
+
+        if (orgStr == null) {
+            return null;
+        }
+
+        //判断 \" 时各加一个 \  此后判断如果有两上 \\ 时就再加一个 \
+        StringBuilder subStr = new StringBuilder((String)orgStr);
+        if ( ((subStr.charAt(0) == '{') && (subStr.charAt(subStr.length() - 1) == '}')) ||
+                ((subStr.charAt(0) == '[') && (subStr.charAt(subStr.length() - 1) == ']')) ) {
+
+            Matcher matcher = Pattern.compile("\"").matcher(subStr);
+            int offset = 0;
+            StringBuilder tmpStr = new StringBuilder(subStr.toString());
+            while (matcher.find()) {
+                tmpStr = tmpStr.insert(matcher.start() + offset, '\\');
+                offset ++;
+            }
+
+            subStr = new StringBuilder(tmpStr.toString());
+            matcher = Pattern.compile("[\\\\]{2,}").matcher(subStr);
+            offset = 0;
+            while (matcher.find()) {
+                tmpStr = tmpStr.insert(matcher.start() + offset, '\\');
+                offset ++;
+            }
+
+            return tmpStr.toString();
+        }
+        return orgStr;
     }
 
     /** 把值按指定的类型转化为字符串 */
