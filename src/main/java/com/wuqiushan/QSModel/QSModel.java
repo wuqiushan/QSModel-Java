@@ -309,12 +309,67 @@ public class QSModel {
         return object;
     }
 
+
+    private static Object valueContent(String orgStr, HashMap<String, String> strMap) {
+
+        /** 0.if(正则 "xx":"%xxxxx%") (即: 是字符串但是里面为[、{、}、] 时的处理斜杠 ) */
+        if (orgStr.matches("^\"%\\w+%\"")) {
+
+            String subStr = strMap.get(orgStr.substring(1, orgStr.length() - 1)); /** 把原身值拿到 */
+            return parseSlash(subStr);
+        }
+        /** 1.if(正则 "xx":"xx",) 为字符串String及中文 (频度大放最前面，减少判断开销) */
+        else if (orgStr.matches("^\".*?\"")) {
+
+            return orgStr.substring(1, orgStr.length() - 1);
+        }
+        /** 2.if(正则 "xx":[.0-9]],) 为浮点Number  优先匹配因为[0-9]容易把该类型匹配走 */
+        else if(orgStr.matches("^\\d+[.]{1}\\d+")) {
+
+            return Double.parseDouble(orgStr.substring(0, orgStr.length()));
+        }
+        /** 3.if(正则 "xx":[0-9],) 为整形Number */
+        else if(orgStr.matches("^\\d+")) {
+
+            return Integer.parseInt(orgStr.substring(0, orgStr.length()));
+        }
+        /** 4.if(正则 "xx":true,) 为Boolean true */
+        else if(orgStr.matches("^true")) {
+
+            return true;
+        }
+        /** 5.if(正则 "xx":false,) 为Boolean false */
+        else if(orgStr.matches("^false")) {
+
+            return false;
+        }
+        /** 6.if(正则 "xx":%xxxxx) 为[、{、}、] (即: 数组或者字典时) 递归 */
+        else if (orgStr.matches("^%\\w+%")) {
+
+            /** 把原身值拿到 */
+            String subStr = strMap.get(orgStr.substring(0, orgStr.length()));
+            if (subStr != null) {
+                return qs_objectWithString(subStr);
+            }
+            return null;
+        }
+        /** 7.if(正则 "xx":"null") 为null */
+        else if(orgStr.matches("^null")) {
+
+            return null;
+        }
+        else {
+            System.out.println("解析失败：" + orgStr + " 格式错误");
+            return null;
+        }
+    }
+
     // jsonString to Map/Array
     public static Object qs_objectWithString(String orgStr) {
 
         if (orgStr == null) { return null; }
 
-        // 解析前：去除所有空格 \r \n 等字符
+        // 解析前：去除所有空格 \r \n 等字符, 不破坏里面子内容中带有空格
         orgStr = orgStr.replace("\r", "");
         orgStr = orgStr.replace("\n", "");
         orgStr = removeSpace(orgStr);
@@ -341,76 +396,16 @@ public class QSModel {
 
             for (String element : strings) {
 
-                /** 0.if(正则 "xx":"%xxxxx%") (即: 是字符串但是里面为[、{、}、] 时的处理斜杠 ) */
-                if (element.matches("^\"\\w+\":\"%\\w+%\"")) {
+                /** xx:124 => prevStr=xx tailStr=124 */
+                int index    = element.indexOf(":");
+                String prevStr = element.substring(0, index);
+                String tailStr = element.substring(index + 1, element.length());
 
-                    int index    = element.indexOf(":");
-                    String key   = element.substring(1, index - 1);
-                    String value = element.substring(index + 2, element.length() -1);
-                    /** 把原身值拿到 */
-                    String subStr = subStrMap.get(value);
-                    hashMap.put(key, parseSlash(subStr));
-                }
-                /** 1.if(正则 "xx":"xx",) 为字符串String及中文 (频度大放最前面，减少判断开销) */
-                else if (element.matches("^\"\\w+\":\".*?\"")) {
+                if (prevStr.matches("^\"\\w+\"")) {
 
-                    int index    = element.indexOf(":");
-                    String key   = element.substring(1, index - 1);
-                    String value = element.substring(index + 2, element.length() - 1);
+                    Object value = valueContent(tailStr, subStrMap);
+                    String key   = prevStr.substring(1, index - 1);
                     hashMap.put(key, value);
-                }
-                /** 2.if(正则 "xx":[.0-9]],) 为浮点Number  优先匹配因为[0-9]容易把该类型匹配走 */
-                else if(element.matches("^\"\\w+\":\\d+[.]{1}\\d+")) {
-
-                    int index    = element.indexOf(":");
-                    String key   = element.substring(1, index - 1);
-                    String value = element.substring(index + 1, element.length());
-                    Double valueDouble = Double.parseDouble(value);
-                    hashMap.put(key, valueDouble);
-                }
-                /** 3.if(正则 "xx":[0-9],) 为整形Number */
-                else if(element.matches("^\"\\w+\":\\d+")) {
-
-                    int index    = element.indexOf(":");
-                    String key   = element.substring(1, index - 1);
-                    String value = element.substring(index + 1, element.length());
-                    Integer valueInt = Integer.parseInt(value);
-                    hashMap.put(key, valueInt);
-                }
-                /** 4.if(正则 "xx":true,) 为Boolean true */
-                else if(element.matches("^\"\\w+\":true")) {
-                    int index    = element.indexOf(":");
-                    String key   = element.substring(1, index - 1);
-                    Boolean value = true;
-                    hashMap.put(key, value);
-                }
-                /** 5.if(正则 "xx":false,) 为Boolean false */
-                else if(element.matches("^\"\\w+\":false")) {
-
-                    int index    = element.indexOf(":");
-                    String key   = element.substring(1, index - 1);
-                    Boolean value = false;
-                    hashMap.put(key, value);
-                }
-                /** 6.if(正则 "xx":%xxxxx) 为[、{、}、] (即: 数组或者字典时) 递归 */
-                else if (element.matches("^\"\\w+\":%\\w+%")) {
-
-                    int index    = element.indexOf(":");
-                    String key   = element.substring(1, index - 1);
-                    String value = element.substring(index + 1, element.length());
-                    /** 把原身值拿到 */
-                    String subStr = subStrMap.get(value);
-                    if (subStr != null) {
-                        Object subObject = qs_objectWithString(subStr);
-                        hashMap.put(key, subObject);
-                    }
-                }
-                /** 7.if(正则 "xx":"null") 为null */
-                else if(element.matches("^\"\\w+\":null")) {
-
-                    int index    = element.indexOf(":");
-                    String key   = element.substring(1, index - 1);
-                    hashMap.put(key, null);
                 }
                 else {
                     System.out.println("解析失败：" + element + " 格式错误");
@@ -429,12 +424,56 @@ public class QSModel {
             /** 存放转换后的元素 */
             ArrayList<Object> arrayList = new ArrayList<>();
 
-            /** {xx, xx}, {xx, xx}, {xx, xx} => {%UUID%: value, %UUID%: value} 字典 */
+            /** 这里分两种情况  */
+            /** 情况1： {xx, xx}, {xx, xx}, {xx, xx} => {%UUID%: value, %UUID%: value} 字典 */
             HashMap<String, String> subArrayMap = splitMaxMatches(strBuilder, "[\\[\\]{}]{1}");
 
-            for (String element : subArrayMap.values()) {
-                Object objectElement = qs_objectWithString(element);
-                arrayList.add(objectElement);
+            /**
+             * 情形1：无嵌入[]{}时，[xx, xx] 格式为 1
+             * 情形2：有嵌入，[{}, {}, {}] 格式为 2
+             * 情形3：有嵌入，[[], [], []] 格式为3
+             * 当情既含有情形1，又有情形2或情形3时，则格式错误
+             * */
+            String[] strings = strBuilder.toString().split(",");
+            Integer firstFormat = 0;  // 数组的格式必须一致, 这是记录第一个数据的格式
+
+            for (int j = 0; j < strings.length; j ++) {
+
+                Integer currFormat = 0;
+                String element = strings[j];
+
+                /** 6.if(正则 "xx":%xxxxx) 为[、{、}、] (即: 数组或者字典时) 递归 */
+                if (element.matches("^%\\w+%")) {
+
+                    /** 把原身值拿到 */
+                    element = subArrayMap.get(element);
+                    Object objectElement = qs_objectWithString(element);
+                    arrayList.add(objectElement);
+                }
+                else {
+                    Object value = valueContent(element, new HashMap<>());
+                    arrayList.add(value);
+                }
+
+                // 当前格式
+                if (element.charAt(0) == '{') {
+                    currFormat = 2;
+                }
+                else if (element.charAt(0) == '[') {
+                    currFormat = 3;
+                }
+                else {
+                    currFormat = 1;
+                }
+
+                // 保留第一个数据的格式，如果后面的与第一个格式不一致就报错
+                if (j == 0) {
+                    firstFormat = currFormat;
+                }
+                else if (firstFormat != currFormat) {
+                    System.out.println("解析失败：" + element + "与其它格式不一样");
+                    return null;
+                }
             }
             return arrayList;
         }

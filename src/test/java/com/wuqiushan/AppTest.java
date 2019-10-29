@@ -82,6 +82,22 @@ public class AppTest
     }
 
     @Test
+    public void testStringArray() {
+
+        List<Object> testArray = new ArrayList<>();
+        testArray.add("123");
+        testArray.add("test");
+
+//        List<Object> addArray = new ArrayList<>();
+//        addArray.add("test1");
+//        addArray.add("test2");
+//        testArray.add(addArray);
+        String testStr = QSModel.qs_stringWithObject(testArray);
+        List<String> result = (List<String>) QSModel.qs_objectWithString(testStr);
+        System.out.println(result);
+    }
+
+    @Test
     public void testStringWithMap()
     {
         assertTrue( true );

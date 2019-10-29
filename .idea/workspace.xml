@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="09924d7c-98a1-4056-b241-d65daa6e61a3" name="Default Changelist" comment="" />
+    <list default="true" id="09924d7c-98a1-4056-b241-d65daa6e61a3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wuqiushan/QSModel/QSModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wuqiushan/QSModel/QSModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/wuqiushan/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/wuqiushan/AppTest.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,48 +22,57 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/wuqiushan/QSModel/QSModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
-              <caret line="465" column="48" selection-start-line="465" selection-start-column="48" selection-end-line="465" selection-end-column="48" />
+            <state relative-caret-position="337">
+              <caret line="362" column="24" lean-forward="true" selection-start-line="362" selection-start-column="24" selection-end-line="362" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/util/regex/Pattern.class">
+        <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/lang/Double.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="84" column="19" selection-start-line="84" selection-start-column="19" selection-end-line="84" selection-end-column="19" />
+            <state relative-caret-position="253">
+              <caret line="65" column="25" selection-start-line="65" selection-start-column="25" selection-end-line="65" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/lang/AbstractStringBuilder.class">
+        <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/util/HashMap.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="424" column="33" selection-start-line="424" selection-start-column="33" selection-end-line="424" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/util/regex/Matcher.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="381" column="39" selection-start-line="381" selection-start-column="39" selection-end-line="381" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/lang/String.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="616" column="57" selection-start-line="616" selection-start-column="57" selection-end-line="616" selection-end-column="57" />
+            <state relative-caret-position="232">
+              <caret line="456" column="25" selection-start-line="456" selection-start-column="25" selection-end-line="456" selection-end-column="25" />
               <folding>
-                <element signature="e#20348#20349#0" expanded="true" />
-                <element signature="e#20423#20424#0" expanded="true" />
+                <element signature="e#5698#5699#0" expanded="true" />
+                <element signature="e#5769#5770#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/testModel/SupStudent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="40">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/testModel/Courses.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="5" column="31" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/testModel/ReadJsonFile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
             </state>
           </provider>
         </entry>
@@ -67,17 +80,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/lang/StringBuilder.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="163" column="25" selection-start-line="163" selection-start-column="25" selection-end-line="163" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.11/junit-4.11.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="17" selection-start-line="17" selection-end-line="17" />
+            <state relative-caret-position="247">
+              <caret line="27" column="11" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -85,7 +89,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/testModel/Student.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
+            <state relative-caret-position="120">
               <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -95,22 +99,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/AppTest.java">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/testModel/Address.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="125" column="43" selection-start-line="125" selection-start-column="43" selection-end-line="125" selection-end-column="43" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="40">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/AppTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
+            <state relative-caret-position="320">
+              <caret line="92" column="32" lean-forward="true" selection-start-line="92" selection-start-column="32" selection-end-line="92" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -127,14 +131,23 @@
       <find>得到数组元素的类型</find>
       <find>pattern</find>
       <find>next</find>
-      <find>subStrMap</find>
       <find>最外层的 {}、[]格式错误</find>
       <find>printMatches</find>
-      <find>qs_objectWithString</find>
       <find>qs_modelWithMap</find>
       <find>targetClass</find>
       <find>hashMap</find>
+      <find>\\w+\&quot;:\&quot;%\\w+%\</find>
+      <find>strBuilder.charAt(0) == '[')</find>
+      <find>strBuilder.charAt(0)</find>
+      <find>\\[\\]{}]{1}</find>
+      <find>\&quot;\\w+\&quot;:%\\w+%</find>
+      <find>subStrMap</find>
+      <find>HashMap&lt;String, String&gt;</find>
+      <find>getContent</find>
+      <find>testDo</find>
+      <find>\&quot;\\w+\&quot;:</find>
       <find>splitMaxMatches</find>
+      <find>qs_objectWithString</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -174,7 +187,7 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="129" />
+    <option name="x" value="52" />
     <option name="y" value="23" />
     <option name="width" value="1920" />
     <option name="height" value="1057" />
@@ -184,6 +197,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -272,7 +286,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -296,8 +309,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.AppTest.testStringWithMap">
-    <configuration name="AppTest.testMapWithString" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.AppTest.testStringArray">
+    <configuration name="AppTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="QSModel-Java" />
       <extension name="coverage">
         <pattern>
@@ -307,8 +320,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.wuqiushan" />
       <option name="MAIN_CLASS_NAME" value="com.wuqiushan.AppTest" />
-      <option name="METHOD_NAME" value="testMapWithString" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -345,7 +357,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AppTest.testRegex" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AppTest.testStringArray" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="QSModel-Java" />
       <extension name="coverage">
         <pattern>
@@ -355,7 +367,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.wuqiushan" />
       <option name="MAIN_CLASS_NAME" value="com.wuqiushan.AppTest" />
-      <option name="METHOD_NAME" value="testRegex" />
+      <option name="METHOD_NAME" value="testStringArray" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -379,11 +391,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.AppTest.testStringArray" />
         <item itemvalue="JUnit.AppTest.testStringWithMap" />
+        <item itemvalue="JUnit.AppTest" />
         <item itemvalue="JUnit.AppTest.testModelWithMap (1)" />
         <item itemvalue="JUnit.AppTest.testModelWithMap" />
-        <item itemvalue="JUnit.AppTest.testMapWithString" />
-        <item itemvalue="JUnit.AppTest.testRegex" />
       </list>
     </recent_temporary>
   </component>
@@ -401,43 +413,44 @@
       <workItem from="1567515599110" duration="6265000" />
       <workItem from="1567776621653" duration="5667000" />
       <workItem from="1567850560295" duration="1751000" />
+      <workItem from="1572338455993" duration="15046000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="AppTest_testModelWithMap - 2019.09.03 at 16h 04m 55s.xml">
-      <configuration name="AppTest.testModelWithMap" configurationId="JUnit" />
+    <history-entry file="AppTest - 2019.10.29 at 16h 54m 30s.xml">
+      <configuration name="AppTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AppTest_testModelWithMap - 2019.09.03 at 16h 06m 40s.xml">
-      <configuration name="AppTest.testModelWithMap" configurationId="JUnit" />
+    <history-entry file="AppTest_testStringArray - 2019.10.29 at 19h 23m 09s.xml">
+      <configuration name="AppTest.testStringArray" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AppTest_testModelWithMap - 2019.09.03 at 16h 16m 22s.xml">
-      <configuration name="AppTest.testModelWithMap" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AppTest_testModelWithMap - 2019.09.03 at 16h 16m 54s.xml">
-      <configuration name="AppTest.testModelWithMap" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AppTest_testModelWithMap_(1) - 2019.09.03 at 22h 56m 22s.xml">
-      <configuration name="AppTest.testModelWithMap (1)" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AppTest_testStringWithMap - 2019.09.07 at 18h 09m 37s.xml">
+    <history-entry file="AppTest_testStringWithMap - 2019.10.29 at 19h 53m 38s.xml">
       <configuration name="AppTest.testStringWithMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AppTest_testStringWithMap - 2019.09.07 at 18h 29m 35s.xml">
+    <history-entry file="AppTest_testStringWithMap - 2019.10.29 at 19h 53m 44s.xml">
       <configuration name="AppTest.testStringWithMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AppTest_testStringWithMap - 2019.09.07 at 18h 31m 37s.xml">
+    <history-entry file="AppTest_testStringWithMap - 2019.10.29 at 19h 56m 33s.xml">
       <configuration name="AppTest.testStringWithMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AppTest_testStringWithMap - 2019.09.07 at 18h 32m 42s.xml">
+    <history-entry file="AppTest_testStringWithMap - 2019.10.29 at 21h 03m 24s.xml">
       <configuration name="AppTest.testStringWithMap" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AppTest_testMapWithString - 2019.09.30 at 18h 30m 05s.xml">
-      <configuration name="AppTest.testMapWithString" configurationId="JUnit" />
+    <history-entry file="AppTest_testStringWithMap - 2019.10.29 at 21h 04m 38s.xml">
+      <configuration name="AppTest.testStringWithMap" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AppTest_testStringArray - 2019.10.29 at 21h 10m 06s.xml">
+      <configuration name="AppTest.testStringArray" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AppTest_testStringArray - 2019.10.29 at 21h 12m 56s.xml">
+      <configuration name="AppTest.testStringArray" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AppTest_testStringArray - 2019.10.29 at 21h 16m 15s.xml">
+      <configuration name="AppTest.testStringArray" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52978000" />
+    <option name="totallyTimeSpent" value="68024000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -449,10 +462,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="129" y="23" width="1920" height="1057" extended-state="0" />
+    <frame x="52" y="23" width="1920" height="1057" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.65595853" visible="true" weight="0.2736954" />
-      <window_info id="Structure" order="1" sideWeight="0.34404144" side_tool="true" visible="true" weight="0.2736954" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.65433854" visible="true" weight="0.27635783" />
+      <window_info id="Structure" order="1" sideWeight="0.34566146" side_tool="true" visible="true" weight="0.27635783" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
@@ -462,21 +476,21 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.4580311" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39378238" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.27150258" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32953367" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32953367" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.32953367" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.18756476" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
       <window_info anchor="bottom" id="Version Control" order="12" weight="0.32953367" />
       <window_info anchor="bottom" id="Alibaba Cloud View" order="13" weight="0.32953367" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info active="true" anchor="right" id="Maven" order="3" visible="true" weight="0.32960597" />
+      <window_info anchor="right" id="Maven" order="3" weight="0.32960597" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="Database" order="6" />
@@ -491,16 +505,22 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/wuqiushan/AppTest.java</url>
-          <line>52</line>
+          <url>file://$PROJECT_DIR$/src/main/java/com/wuqiushan/QSModel/QSModel.java</url>
+          <line>377</line>
           <properties />
-          <option name="timeStamp" value="100" />
+          <option name="timeStamp" value="112" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/wuqiushan/AppTest.java</url>
-          <line>54</line>
+          <url>file://$PROJECT_DIR$/src/main/java/com/wuqiushan/QSModel/QSModel.java</url>
+          <line>450</line>
           <properties />
-          <option name="timeStamp" value="102" />
+          <option name="timeStamp" value="115" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/wuqiushan/QSModel/QSModel.java</url>
+          <line>453</line>
+          <properties />
+          <option name="timeStamp" value="116" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -511,20 +531,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/testModel/SupStudent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/testModel/ReadJsonFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/lang/reflect/Field.class" />
     <entry file="jar://$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.8.2/gson-2.8.2.jar!/com/google/gson/Gson.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -540,35 +546,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/lang/String.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="616" column="57" selection-start-line="616" selection-start-column="57" selection-end-line="616" selection-end-column="57" />
-          <folding>
-            <element signature="e#20348#20349#0" expanded="true" />
-            <element signature="e#20423#20424#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/Student.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/testModel/Address.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/testModel/Courses.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="5" column="31" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -579,48 +560,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/util/Stack.class" />
+    <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/util/Date.class" />
+    <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/lang/Object.class" />
+    <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/lang/Class.class" />
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home/lib/src.zip!/java.base/java/util/HashMap.java" />
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home/lib/src.zip!/java.base/java/lang/String.java" />
     <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/util/regex/Pattern.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
+        <state relative-caret-position="1020">
           <caret line="84" column="19" selection-start-line="84" selection-start-column="19" selection-end-line="84" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/lang/AbstractStringBuilder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8020">
+          <caret line="424" column="33" selection-start-line="424" selection-start-column="33" selection-end-line="424" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/util/regex/Matcher.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
+        <state relative-caret-position="7080">
           <caret line="381" column="39" selection-start-line="381" selection-start-column="39" selection-end-line="381" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/util/Stack.class" />
-    <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/lang/StringBuilder.class">
+    <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/lang/String.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="163" column="25" selection-start-line="163" selection-start-column="25" selection-end-line="163" selection-end-column="25" />
+        <state relative-caret-position="10980">
+          <caret line="616" column="57" selection-start-line="616" selection-start-column="57" selection-end-line="616" selection-end-column="57" />
         </state>
       </provider>
     </entry>
-    <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/util/Date.class" />
-    <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/util/HashMap.class" />
-    <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/lang/Object.class" />
-    <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/lang/Class.class" />
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home/lib/src.zip!/java.base/java/util/HashMap.java" />
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home/lib/src.zip!/java.base/java/lang/String.java" />
     <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.11/junit-4.11.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
           <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/testModel/Student.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -631,20 +608,83 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/wuqiushan/QSModel/QSModel.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/testModel/SupStudent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="465" column="48" selection-start-line="465" selection-start-column="48" selection-end-line="465" selection-end-column="48" />
+        <state relative-caret-position="40">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/testModel/Address.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/testModel/Courses.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" column="31" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/testModel/ReadJsonFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/testModel/Student.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/lang/StringBuilder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="27" column="11" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/lang/Double.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="65" column="25" selection-start-line="65" selection-start-column="25" selection-end-line="65" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jrt:///Applications/IntelliJ IDEA.app/Contents/jdk/Contents/Home!/java.base/java/util/HashMap.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="456" column="25" selection-start-line="456" selection-start-column="25" selection-end-line="456" selection-end-column="25" />
+          <folding>
+            <element signature="e#5698#5699#0" expanded="true" />
+            <element signature="e#5769#5770#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/wuqiushan/AppTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="125" column="43" selection-start-line="125" selection-start-column="43" selection-end-line="125" selection-end-column="43" />
+        <state relative-caret-position="320">
+          <caret line="92" column="32" lean-forward="true" selection-start-line="92" selection-start-column="32" selection-end-line="92" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/wuqiushan/QSModel/QSModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="362" column="24" lean-forward="true" selection-start-line="362" selection-start-column="24" selection-end-line="362" selection-end-column="24" />
         </state>
       </provider>
     </entry>
